@@ -1,0 +1,77 @@
+import {
+    Prop, Schema, SchemaFactory
+} from '@nestjs/mongoose'
+import { Document } from 'mongoose'
+import * as mongoose from 'mongoose'
+import { UserStatus } from 'src/modules/enum/user-status.enum';
+import { UserAct } from 'src/modules/enum/user-act.enum';
+import { CrewStat } from 'src/modules/enum/crew-stat.enum';
+
+export type CrewMemberReqDocument = CrewMemberReq & Document;
+
+@Schema({
+    timestamps: true
+})
+export class CrewMemberReq {
+
+    @Prop({
+        required: true,
+        unique: true,
+        type: String,
+        select: false
+    })
+        phone: string;
+
+    @Prop({
+        type: String
+    })
+        mail: string;
+
+    @Prop({
+        type: String,
+        required: true,
+    })
+        status: UserStatus;
+
+
+    @Prop({
+        type: String,
+        required: true,
+    })
+    useract: UserAct.ACTIVE;
+
+    @Prop({
+        type: String,
+    })
+    crewname: string;
+
+    @Prop({
+        type: String,
+    })
+    crewstat: CrewStat.MEMBER;
+
+    @Prop({
+        type: String,
+    })
+    salary: string;
+    
+    @Prop({
+        type: String,
+    })
+    jobtitle: string;
+
+    @Prop({
+        type: String,
+    })
+    age: string;
+
+    @Prop({
+        type: String,
+        required: true
+    })
+    from: string;
+
+ }
+
+
+ export const CrewMemberReqSchema = SchemaFactory.createForClass(CrewMemberReq);
